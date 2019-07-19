@@ -1,16 +1,58 @@
-import React, {Component} from "react";
-import { Link } from "react-router-dom"
+import React, { Component } from "react";
+import { Link, Redirect } from 'react-router-dom'
 
-class Login extends Component {
-    render() {
-        return(
-            <div> 
-                <p>Flowing Freeride</p>
-                <Link to="/form">Form</Link>
+export default class extends Component {
+  state = {
+    email: "",
+    password: "",
+    redirect: false
+  };
 
-            </div>
-        )
+  handleSubmit = event => {
+    event.preventDefault();
+    const { redirect, ...login } = this.state;
+    if (!this.props.login(login)) {
+      alert("Invalid User, Try Again");
+    } else {
+        alert("Successfully Logged In");
+      this.setState({ redirect: true });
     }
-}
+  };
 
-export default Login;
+  handleChange = ({ target }) => {
+    this.setState({ [target.name]: target.value });
+  };
+
+  render() {
+    const title = "Login";
+    const willRedirect = this.state.redirect
+    return (
+        <>
+      {willRedirect ? <Redirect to='/'/>:
+      <fieldset className="center">
+        <legend>{title}</legend>
+        <form className="flexbox" onSubmit={this.handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            onChange={this.handleChange}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={this.handleChange}
+            required
+          />
+          <button type="submit">{title}</button>
+        </form>
+        <div>
+          Did you forget your password? <Link to="/forgot">Click here</Link>
+        </div>
+      </fieldset>}
+      </>
+    );
+  }
+}
