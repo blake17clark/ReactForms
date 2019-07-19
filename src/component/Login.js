@@ -5,7 +5,7 @@ class Login extends Component {
     render() {
         return(
             <div> 
-                <p>Hello World</p>
+                <p>Flowing Freeride</p>
                 <Link to="/form">Form</Link>
 
             </div>
