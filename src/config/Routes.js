@@ -1,19 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "../component/Login";
-import Form from "../component/Register";
+import { Route } from "react-router-dom";
+import Home from "../pages/Home";
+import Auth from "../pages/Auth";
+import Login from "../components/Login";
+import ForgotPassword from "../components/ForgotPassword";
 
-
-function Routing() {
+const Routes = ({ getContacts, addContact, login }) => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route
-          path='/Form'
-            render={(props) => <Form {...props} isAuthed={true} />}/>
-      </Switch>
-    </Router>
+    <>
+      <Route
+        exact
+        path="/"
+        component={() => <Home getContacts={getContacts} />}
+      />
+      <Route
+        path="/auth"
+        component={() => <Auth addContact={addContact} login={login} />}
+      />
+      <Route path="/login" component={() => <Login login={login} />} />
+      <Route path="/forgot" component={ForgotPassword} />
+    </>
   );
-}
-export default Routing;
+};
+
+export default Routes;

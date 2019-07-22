@@ -25,3 +25,7 @@ button{
 #authPage * {
   height: 100%;
 }
+
+body{
+  background-color: rgba(127, 204, 255, 0.591)
+}
